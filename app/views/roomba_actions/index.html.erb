@@ -1,0 +1,8 @@
+<h1>Roomba Controller</h1>
+
+<%= button_to "Rotate Left", roomba_actions_path, remote: true, params: { roomba_action_type: "left" } %>
+<%= button_to "Rotate Right", roomba_actions_path, remote: true, params: { roomba_action_type: "right" } %>
+<%= button_to "Move Forward", roomba_actions_path, remote: true, params: { roomba_action_type: "forward" } %>
+<%= button_to "Move Backward", roomba_actions_path, remote: true, params: { roomba_action_type: "backward" } %>
+
+<img src=http://192.168.0.107:8081/ border=0 width=25%>
