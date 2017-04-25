@@ -7,25 +7,30 @@ class RoombaInterface
   end
 
   def move_forward
-    @rumba.straight WHEEL_ROTATION_RATE
-    sleep ACTION_TIME_SECONDS
-    @rumba.halt
+    execute_roomba_movement_action { @rumba.straight WHEEL_ROTATION_RATE }
   end
 
   def move_backward
-    @rumba.straight -WHEEL_ROTATION_RATE
-    sleep ACTION_TIME_SECONDS
-    @rumba.halt
+    execute_roomba_movement_action { @rumba.straight -WHEEL_ROTATION_RATE }
   end
 
   def turn_right
-    @rumba.spin_right(WHEEL_ROTATION_RATE)
-    sleep ACTION_TIME_SECONDS
-    @rumba.halt
+    execute_roomba_movement_action { @rumba.spin_right(WHEEL_ROTATION_RATE) }
   end
 
   def turn_left
-    @rumba.spin_left(WHEEL_ROTATION_RATE)
+    execute_roomba_movement_action { @rumba.spin_left(WHEEL_ROTATION_RATE) }
+  end
+
+  def sensors
+    @rumba.get_sensors
+  end
+
+  private
+
+  def execute_roomba_movement_action
+    yield
+
     sleep ACTION_TIME_SECONDS
     @rumba.halt
   end
