@@ -1,17 +1,16 @@
 class RoombaActionsController < ApplicationController
 
+  def create
+    ROOMBA_ACTION_MAP
+      .fetch(params[:roomba_action_type])
+      .call(RoombaContainer[:interface])
+  end
+
   ROOMBA_ACTION_MAP = {
-    "left" => ->() { roomba.turn_left },
-    "right" => ->() { roomba.turn_right },
-    "forward" => ->() { roomba.move_forward },
-    "backward" => ->() { roomba.move_backward }
+    "left" => ->(roomba) { roomba.turn_left },
+    "right" => ->(roomba) { roomba.turn_right },
+    "forward" => ->(roomba) { roomba.move_forward },
+    "backward" => ->(roomba) { roomba.move_backward }
   }
 
-  def create
-    ROOMBA_ACTION_MAP[params[:roomba_action_type]].call
-  end
-
-  def roomba
-    RoombaContainer[:interface]
-  end
 end
